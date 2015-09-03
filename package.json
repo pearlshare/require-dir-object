@@ -1,0 +1,20 @@
+{
+  "name": "require-dir-object",
+  "version": "0.0.1",
+  "description": "Require all the files in a directory and export as an object",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://bitbucket.org/pearlshare/require-dir-object.git"
+  },
+  "keywords": [
+    "node",
+    "dir",
+    "require"
+  ],
+  "author": "",
+  "license": "MIT"
+}
