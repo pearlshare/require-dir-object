@@ -16,5 +16,8 @@
     "require"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "expect.js": "^0.3.1"
+  }
 }
