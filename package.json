@@ -4,7 +4,7 @@
   "description": "Require all the files in a directory and export as an object",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "expect.js": "^0.3.1"
+    "expect.js": "^0.3.1",
+    "mocha": "^2.3.0"
   }
 }
