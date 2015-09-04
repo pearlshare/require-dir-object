@@ -64,11 +64,19 @@ describe("require-dir-object", function() {
       var contents = reqDir(testDir);
 
       expect(contents).to.be.an("object");
-      expect(Object.keys(contents)).to.have.length(4);
+      expect(Object.keys(contents)).to.have.length(5);
 
       expect(contents.empty).to.be.an("object");
       expect(contents["one-file"]).to.be.an("object");
       expect(contents["two-files"]).to.be.an("object");
+    });
+
+    it("should convert a file with underscores in the name to use camel case", function() {
+      var testDir = path.join(__dirname, "test-dir");
+      var contents = reqDir(testDir);
+
+      expect(contents).to.be.an("object");
+      expect(contents.fileWithUnderscores).to.eql(require(path.join(testDir, "file_with_underscores")));
     });
   });
 });
