@@ -14,13 +14,16 @@ Given a dir of node modules:
  |- other_folder
    |- badger.js
    |- badger_fish.js
+ |- folder_with_index
+   |- index.js
+   |- other_file.js
 ```
 
 `require-dir-object` allows this to be exported via the index.js.
 
 index.js
 ```js
-module.exports = require("require-dir-object")(__dirname);
+module.exports = require("require-dir-object")(__dirname, {case: "camel"});
 ```
 
 Will be equivalent to:
@@ -32,12 +35,18 @@ module.exports = {
     otherFolder: {
         badger: require("./other_folder/badger"),
         badgerFish: require("./other_folder/badger_fish")
-    }
+    },
+    folder_with_index: "contents of index.js"
 };
 ```
 
 
 ## Notes
 
-* The underscored files are camelcased.
-* The folder is turned into a sub object.
+* Items can be 
+    * 'camelCasedWords' `{case: "camel"}`
+    * 'CapitalizedWords' `{case: "capitalized}`
+    * 'snake_cased_words' `{case: "nake}`
+* Each folder is turned into a sub object.
+* If a folder has an `index.js` it will load that in favour of folder contents
+
