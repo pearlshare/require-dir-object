@@ -43,10 +43,11 @@ module.exports = {
 
 ## Notes
 
-* Items can be 
+* Object keys can be transformed using options:
     * 'camelCasedWords' `{case: "camel"}`
     * 'CapitalizedWords' `{case: "capitalized}`
     * 'snake_cased_words' `{case: "nake}`
+* Can limit recursion depth using options: `{depth: 2}`
 * Each folder is turned into a sub object.
 * If a folder has an `index.js` it will load that in favour of folder contents
 

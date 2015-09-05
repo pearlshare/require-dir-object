@@ -1,6 +1,6 @@
 {
   "name": "require-dir-object",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Require all the files in a directory and export as an object",
   "main": "index.js",
   "scripts": {

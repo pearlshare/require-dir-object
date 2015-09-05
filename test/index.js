@@ -32,6 +32,32 @@ describe("require-dir-object", function() {
   });
 
   describe("usage", function() {
+    it("should ignore the index.js in the root directory", function() {
+      var testDir = path.join(__dirname, "test-dir");
+      var contents = reqDir(testDir);
+
+      expect(contents).to.be.an("object");
+      expect(Object.keys(contents)).to.have.length(5);
+    });
+
+    describe("depth", function () {
+      it("should limit the recursion depth to 0", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {depth: 0});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(2);
+        expect(contents["two-files"]).to.be(undefined);
+      });
+      it("should limit the recursion depth to 1", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {depth: 1});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(5);
+        expect(contents["two-files"]).to.be.a("object");
+      });
+    });
 
     describe("camelCase", function () {
       it("should return an empty object if the directory is empty", function() {
