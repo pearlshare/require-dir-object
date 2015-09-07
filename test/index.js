@@ -114,7 +114,6 @@ describe("require-dir-object", function() {
         expect(contents).to.be.an("object");
         expect(contents.withIndex).to.eql(require(path.join(testDir, "with_index")));
       });
-
     });
 
     describe("snake_case", function () {
@@ -172,7 +171,6 @@ describe("require-dir-object", function() {
         expect(contents).to.be.an("object");
         expect(contents.with_index).to.eql(require(path.join(testDir, "with_index")));
       });
-
     });
 
     describe("capitalize", function () {
@@ -215,7 +213,7 @@ describe("require-dir-object", function() {
         expect(contents["TwoFiles"]).to.be.an("object");
       });
 
-      it("should convert a file with underscores in the name to use snake case", function() {
+      it("should convert a file with underscores in the name to use capitalize", function() {
         var testDir = path.join(__dirname, "test-dir");
         var contents = reqDir(testDir, {case: "capitalize"});
 
@@ -230,7 +228,50 @@ describe("require-dir-object", function() {
         expect(contents).to.be.an("object");
         expect(contents["WithIndex"]).to.eql(require(path.join(testDir, "with_index")));
       });
+    });
 
+    describe("exclude", function() {
+      it("should return an empty object if the directory is empty", function() {
+        var testDir = path.join(__dirname, "test-dir", "empty");
+        var contents = reqDir(testDir, {exclude: ["one.js"]});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(0);
+      });
+
+      it("should skip over the file if it was specified in 'exclude'", function() {
+        var testDir = path.join(__dirname, "test-dir", "one-file");
+        var contents = reqDir(testDir, {exclude: ["one.js"]});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(0);
+      });
+
+      it("should skip over only the file to exclude, leaving all other files", function() {
+        var testDir = path.join(__dirname, "test-dir", "two-files");
+        var contents = reqDir(testDir, {exclude: ["one.js"]});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(1);
+        expect(contents["one"]).to.eql(undefined);
+        expect(contents["two"]).to.eql(require(path.join(testDir, "two")));
+      });
+
+      it("should skip over files even with other directories alongside it", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {exclude: ["fileWithDir.js"]});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(4);
+      });
+
+      it("should skip over file even when within a sub-directory", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {exclude: ["one-file/one.js"]});
+
+        expect(contents).to.be.an("object");
+        expect(contents["one-file"].one).to.eql(undefined);
+      });
     });
   });
 });
