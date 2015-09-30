@@ -1,5 +1,6 @@
 require-dir-object
 ==================
+![circleci](https://circleci.com/gh/pearlshare/require-dir-object.png?style=shield)
 
 Turn a directory into a tree of objects with the required version of each file.
 
