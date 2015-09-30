@@ -1,33 +1,32 @@
-# require-dir-object
+require-dir-object
+==================
 
-Turn a directory into an object which requires all files and exports them as an object with keys of file names.
+Turn a directory into a tree of objects with the required version of each file.
 
-## Usage
+Example
+-----
 
-Given a dir of node modules:
+Given a directory of JavaScript files:
 
 ```
 -
- |- index.js
- |- fish.js
- |- other_file.js
- |- other_folder
-   |- badger.js
-   |- badger_fish.js
- |- folder_with_index
-   |- index.js
-   |- other_file.js
+ > index.js
+ > fish.js
+ > other_file.js
+ > other_folder
+   > badger.js
+   > badger_fish.js
+ > folder_with_index
+   > index.js
+   > other_file.js
 ```
 
-`require-dir-object` allows this to be exported via the index.js.
-
-index.js
+**index.js**
 ```js
 module.exports = require("require-dir-object")(__dirname, {case: "camel"});
 ```
 
-Will be equivalent to:
-
+Would be equivalent to:
 ```js
 module.exports = {
     fish: require("./fish"),
@@ -36,18 +35,26 @@ module.exports = {
         badger: require("./other_folder/badger"),
         badgerFish: require("./other_folder/badger_fish")
     },
-    folder_with_index: "contents of index.js"
+    folder_with_index: require(./"folder_with_index")
 };
 ```
 
 
-## Notes
+Options
+-------
+| Name          | Description                      | Type     | Example                |
+| -------------:|:-------------------------------- |:--------:|:---------------------- |
+| _**case**_    | Converts file naming method      | _string_ | `{case: "camel"}`      |
+| _**depth**_   | Limit sub-directory search depth | _int_    | `{depth: 3}`           |
+| _**explude**_ | Exclude files at a specific path | _string_ | `{exclude: "fish.js"}` |
 
-* Object keys can be transformed using options:
-    * 'camelCasedWords' `{case: "camel"}`
-    * 'CapitalizedWords' `{case: "capitalized}`
-    * 'snake_cased_words' `{case: "nake}`
-* Can limit recursion depth using options: `{depth: 2}`
-* Each folder is turned into a sub object.
-* If a folder has an `index.js` it will load that in favour of folder contents
 
+Notes
+-----
+* Every folder is turned into a sub-object.
+* If a folder has an `index.js` it will load that in favor of folder contents.
+
+
+License
+-------
+MIT
