@@ -43,11 +43,11 @@ module.exports = {
 
 Options
 -------
-| Name          | Description                      | Type     | Example                |
-| -------------:|:-------------------------------- |:--------:|:---------------------- |
-| _**case**_    | Converts file naming method      | _string_ | `{case: "camel"}`      |
-| _**depth**_   | Limit sub-directory search depth | _int_    | `{depth: 3}`           |
-| _**explude**_ | Exclude files at a specific path | _string_ | `{exclude: "fish.js"}` |
+| Name          | Description                      | Type                    | Example                |
+| -------------:|:-------------------------------- |:-----------------------:|:---------------------- |
+| _**case**_    | Converts file naming method      | _string_                | `{case: "camel"}`      |
+| _**depth**_   | Limit sub-directory search depth | _int_                   | `{depth: 3}`           |
+| _**exclude**_ | Exclude files at a specific path | _string_ **or** _array_ | `{exclude: "fish.js"}` |
 
 
 Notes
