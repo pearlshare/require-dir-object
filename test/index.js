@@ -173,6 +173,63 @@ describe("require-dir-object", function() {
       });
     });
 
+    describe("kebab_case", function () {
+      it("should return an empty object if the directory is empty", function() {
+        var testDir = path.join(__dirname, "test-dir", "empty");
+        var contents = reqDir(testDir, {case: "kebab"});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(0);
+      });
+
+      it("should show the contents of a file within the directory", function() {
+        var testDir = path.join(__dirname, "test-dir", "one-file");
+        var contents = reqDir(testDir, {case: "kebab"});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(1);
+        expect(contents.one).to.eql(require(path.join(testDir, "one")));
+      });
+
+      it("should support multiple files in a single directory", function() {
+        var testDir = path.join(__dirname, "test-dir", "two-files");
+        var contents = reqDir(testDir, {case: "kebab"});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(2);
+        expect(contents.one).to.eql(require(path.join(testDir, "one")));
+        expect(contents.two).to.eql(require(path.join(testDir, "two")));
+      });
+
+      it("should read a file even when there are directories along side it", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {case: "kebab"});
+
+        expect(contents).to.be.an("object");
+        expect(Object.keys(contents)).to.have.length(5);
+
+        expect(contents.empty).to.be(undefined);
+        expect(contents["one-file"]).to.be.an("object");
+        expect(contents["two-files"]).to.be.an("object");
+      });
+
+      it("should convert a file with underscores in the name to use kebab case", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {case: "kebab"});
+
+        expect(contents).to.be.an("object");
+        expect(contents["file-with-underscores"]).to.eql(require(path.join(testDir, "file_with_underscores")));
+      });
+
+      it("should use the index from a directory with an index file", function() {
+        var testDir = path.join(__dirname, "test-dir");
+        var contents = reqDir(testDir, {case: "kebab"});
+
+        expect(contents).to.be.an("object");
+        expect(contents["with-index"]).to.eql(require(path.join(testDir, "with_index")));
+      });
+    });
+
     describe("capitalize", function () {
       it("should return an empty object if the directory is empty", function() {
         var testDir = path.join(__dirname, "test-dir", "empty");
