@@ -1,5 +1,6 @@
 var expect = require("expect.js");
 var path = require("path");
+var fs = require("fs");
 var reqDir = require("../");
 
 describe("require-dir-object", function() {
@@ -56,6 +57,54 @@ describe("require-dir-object", function() {
         expect(contents).to.be.an("object");
         expect(Object.keys(contents)).to.have.length(5);
         expect(contents["two-files"]).to.be.a("object");
+      });
+    });
+
+    describe("func", function() {
+      it("should throw an error if not a function", function() {
+        var testDir = path.join(__dirname, "test-dir", "two-files");
+
+        try {
+          reqDir(testDir, {func: "THIS ISIN'T A FUNCTION"});
+        } catch (err) {
+          expect(err);
+          expect(err.message).to.match(/func/);
+          return;
+        }
+
+        expect().fail("No error was thrown");
+      });
+
+      it("should call a custom function on files", function() {
+        var testDir = path.join(__dirname, "test-dir", "two-files");
+        var contents = reqDir(testDir, {func: function(pth) {
+          return fs.readFileSync(pth).toString();
+        }});
+
+        expect(contents.one).to.be.a("string");
+      });
+    });
+
+    describe("ext", function() {
+      it("should default to .js", function() {
+        var testDir = path.join(__dirname, "test-dir", "non_js");
+        var contents = reqDir(testDir);
+
+        expect(Object.keys(contents).length).to.eql(0);
+      });
+
+      it("should read files of a different extension", function() {
+        var testDir = path.join(__dirname, "test-dir", "non_js");
+        var contents = reqDir(testDir, {
+          ext: ".txt",
+          func: function(pth) {
+            return fs.readFileSync(pth).toString();
+          }
+        });
+
+        expect(Object.keys(contents).length).to.eql(2);
+        expect(contents.someFile).to.be.a("string");
+        expect(contents.anotherFile).to.be.a("string");
       });
     });
 
