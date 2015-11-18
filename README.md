@@ -36,24 +36,26 @@ module.exports = {
         badger: require("./other_folder/badger"),
         badgerFish: require("./other_folder/badger_fish")
     },
-    folder_with_index: require(./"folder_with_index")
+    folder_with_index: require("./folder_with_index")
 };
 ```
 
 
 Options
 -------
-| Name          | Description                      | Type                    | Example                |
-| -------------:|:-------------------------------- |:-----------------------:|:---------------------- |
-| _**case**_    | Converts file naming method      | _string_                | `{case: "camel"}`      |
-| _**depth**_   | Limit sub-directory search depth | _int_                   | `{depth: 3}`           |
-| _**exclude**_ | Exclude files at a specific path | _string_ **or** _array_ | `{exclude: "fish.js"}` |
+| Name          | Description                      | Type                    | Example                 |
+| -------------:|:-------------------------------- |:-----------------------:|:------------------------|
+| _**case**_    | Converts file naming method      | _string_                | `{case: "camel"}`       |
+| _**depth**_   | Limit sub-directory search depth | _int_                   | `{depth: 3}`            |
+| _**exclude**_ | Exclude files at a specific path | _string_ **or** _array_ | `{exclude: "fish.js"}`  |
+| _**ext**_     | Search for a specific extension  | _string_                | `{ext: ".xml"}`         |
+| _**func**_    | Call a function on found file    | _function_              | `{ext: fs.readFileSync}`|
 
 
 Notes
 -----
 * Every folder is turned into a sub-object.
-* If a folder has an `index.js` it will load that in favor of folder contents.
+* If a folder has an `index` it will load that in favor of folder contents.
 
 
 License
