@@ -43,13 +43,13 @@ module.exports = {
 
 Options
 -------
-| Name          | Description                      | Type                    | Example                 |
-| -------------:|:-------------------------------- |:-----------------------:|:------------------------|
-| _**case**_    | Converts file naming method      | _string_                | `{case: "camel"}`       |
-| _**depth**_   | Limit sub-directory search depth | _int_                   | `{depth: 3}`            |
-| _**exclude**_ | Exclude files at a specific path | _string_ **or** _array_ | `{exclude: "fish.js"}`  |
-| _**ext**_     | Search for a specific extension  | _string_                | `{ext: ".xml"}`         |
-| _**func**_    | Call a function on found file    | _function_              | `{ext: fs.readFileSync}`|
+| Name          | Description                      | Type                    | Example                 | Default            |
+| -------------:|:-------------------------------- |:-----------------------:|:------------------------|:-------------------|
+| _**case**_    | Converts file naming method      | _string_                | `{case: "camel"}`       | `null`             |
+| _**depth**_   | Limit sub-directory search depth | _int_                   | `{depth: 3}`            | `Number.MAX_VALUE` |
+| _**exclude**_ | Exclude files at a specific path | _string_ **or** _array_ | `{exclude: "fish.js"}`  | `[]`               |
+| _**ext**_     | Search for a specific extension  | _string_                | `{ext: ".xml"}`         | `".js"`            |
+| _**func**_    | Call a function on found file    | _function_              | `{ext: fs.readFileSync}`| `require`          |
 
 
 Notes
