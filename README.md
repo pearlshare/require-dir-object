@@ -10,16 +10,16 @@ Example
 Given a directory of JavaScript files:
 
 ```
--
- > index.js
- > fish.js
- > other_file.js
- > other_folder
-   > badger.js
-   > badger_fish.js
- > folder_with_index
-   > index.js
-   > other_file.js
+.
+├── fish.js
+├── folder_with_index
+│   ├── index.js
+│   └── other_file.js
+├── index.js
+├── other_file.js
+└── other_folder
+    ├── badger.js
+    └── badger_fish.js
 ```
 
 **index.js**
