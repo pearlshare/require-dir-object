@@ -36,7 +36,7 @@ module.exports = {
         badger: require("./other_folder/badger"),
         badgerFish: require("./other_folder/badger_fish")
     },
-    folder_with_index: require("./folder_with_index")
+    folderWithIndex: require("./folder_with_index")
 };
 ```
 
@@ -50,6 +50,8 @@ Options
 | _**exclude**_ | Exclude files at a specific path | _string_ **or** _array_ | `{exclude: "fish.js"}`  | `[]`               |
 | _**ext**_     | Search for a specific extension  | _string_                | `{ext: ".xml"}`         | `".js"`            |
 | _**func**_    | Call a function on found file    | _function_              | `{ext: fs.readFileSync}`| `require`          |
+
+Available case conversions are `camel`, `snake`, `kebab`, `capitalize`.
 
 
 Notes
